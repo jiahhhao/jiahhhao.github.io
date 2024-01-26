@@ -16,25 +16,24 @@
   <meta name="author" content="Zeng Jiahao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="相关知识 目前神经网络框架分为静态图框架和动态图框架，PyTorch 和 TensorFlow、Caffe 等框架最大的区别就是他们拥有不同的计算图表现形式。 TensorFlow 使用静态图，这意味着我们先定义计算图，然后不断使用它，而在 PyTorch 中，每次都会重新构建一个新的计算图。通过这次课程，我们会了解静态图和动态图之间的优缺点。 对于使用者来说，两种形式的计算图有着非常大的区别，">
+    <meta name="description" content="数模心得之数维杯 总算是没有寄的那么厉害的一次数模了原地哭泣www…下面来总结一下哪些做的好的地方和还可以再改进的地方 好的地方1、吸取了前几次的教训，首先就是速度上一定不能拖，能开始的动手写论文就一定要开始写。 2、对于细节一定要把控好，精选到每个图片里面的每一个字母，排版什么的一定要留时间去检查。 3、网上的一些参考资料那就是参考，千万别认为他就是对的，一定要有自己的认知和判断。 4、遇到瓶">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深度学习中静态图动态图">
-<meta property="og:url" content="https://jiahhhao.github.io/jiahhhao/2023/12/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE/index.html">
+<meta property="og:title" content="数模心得之数维杯">
+<meta property="og:url" content="https://jiahhhao.github.io/jiahhhao/2024/01/26/%E6%95%B0%E6%A8%A1%E5%BF%83%E5%BE%97%E4%B9%8B%E6%95%B0%E7%BB%B4%E6%9D%AF/index.html">
 <meta property="og:site_name" content="Z21B">
-<meta property="og:description" content="相关知识 目前神经网络框架分为静态图框架和动态图框架，PyTorch 和 TensorFlow、Caffe 等框架最大的区别就是他们拥有不同的计算图表现形式。 TensorFlow 使用静态图，这意味着我们先定义计算图，然后不断使用它，而在 PyTorch 中，每次都会重新构建一个新的计算图。通过这次课程，我们会了解静态图和动态图之间的优缺点。 对于使用者来说，两种形式的计算图有着非常大的区别，">
+<meta property="og:description" content="数模心得之数维杯 总算是没有寄的那么厉害的一次数模了原地哭泣www…下面来总结一下哪些做的好的地方和还可以再改进的地方 好的地方1、吸取了前几次的教训，首先就是速度上一定不能拖，能开始的动手写论文就一定要开始写。 2、对于细节一定要把控好，精选到每个图片里面的每一个字母，排版什么的一定要留时间去检查。 3、网上的一些参考资料那就是参考，千万别认为他就是对的，一定要有自己的认知和判断。 4、遇到瓶">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jiahhhao.github.io/pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE1.gif">
-<meta property="og:image" content="https://jiahhhao.github.io/pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE2.png">
-<meta property="article:published_time" content="2023-12-11T03:20:50.000Z">
-<meta property="article:modified_time" content="2023-12-22T08:26:14.437Z">
+<meta property="og:image" content="https://jiahhhao.github.io/pic/mathModeling/mathModeling2.png">
+<meta property="article:published_time" content="2024-01-26T14:10:11.000Z">
+<meta property="article:modified_time" content="2024-01-26T14:46:44.584Z">
 <meta property="article:author" content="Zeng Jiahao">
-<meta property="article:tag" content="DL">
+<meta property="article:tag" content="math modeling">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://jiahhhao.github.io/pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE1.gif">
+<meta name="twitter:image" content="https://jiahhhao.github.io/pic/mathModeling/mathModeling2.png">
   
   
   
-  <title>深度学习中静态图动态图 - Z21B</title>
+  <title>数模心得之数维杯 - Z21B</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="深度学习中静态图动态图"></span>
+            <span id="subtitle" data-typed-text="数模心得之数维杯"></span>
           
         </div>
 
@@ -211,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-11 11:20" pubdate>
-          2023年12月11日 上午
+        <time datetime="2024-01-26 22:10" pubdate>
+          2024年1月26日 晚上
         </time>
       </span>
     
@@ -223,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          434 字
         
       </span>
     
@@ -234,7 +233,7 @@
         
         
         
-          20 分钟
+          4 分钟
         
       </span>
     
@@ -271,47 +270,21 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">深度学习中静态图动态图</h1>
+            <h1 id="seo-header">数模心得之数维杯</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="相关知识"><a href="#相关知识" class="headerlink" title=" 相关知识 "></a><center> 相关知识 </center></h2><p>目前神经网络框架分为静态图框架和动态图框架，PyTorch 和 TensorFlow、Caffe 等框架最大的区别就是他们拥有不同的计算图表现形式。 TensorFlow 使用静态图，这意味着我们先定义计算图，然后不断使用它，而在 PyTorch 中，每次都会重新构建一个新的计算图。通过这次课程，我们会了解静态图和动态图之间的优缺点。</p>
-<p>对于使用者来说，两种形式的计算图有着非常大的区别，同时静态图和动态图都有他们各自的优点，比如动态图比较方便debug，使用者能够用任何他们喜欢的方式进行debug，同时非常直观，而静态图是通过先定义后运行的方式，之后再次运行的时候就不再需要重新构建计算图，所以速度会比动态图更快。</p>
-<p><strong>动态图</strong>：在计算的时候，就会把计算过程动态图存储起来。每次前向过程都会重新建立一个新图。</p>
-<p><strong>静态图</strong>：静态图需要预先定义好运算规则流程，然后把运算流程存储下来。</p>
-<p>两者的区别用一句话概括就是：</p>
-<ul>
-<li>动态图：运算与搭建同时进行；灵活，易调节。</li>
-<li>静态图：先搭建图，后运算；高效，不灵活。</li>
-</ul>
-<p><img src="/../pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE1.gif" srcset="/img/loading.gif" lazyload alt="演示动画"></p>
-<h2 id="Pytorch中的动态图"><a href="#Pytorch中的动态图" class="headerlink" title="Pytorch中的动态图 "></a><center>Pytorch中的动态图 </center></h2><p>动态图的初步推导：</p>
-<ul>
-<li>计算图是用来描述运算的有向无环图</li>
-<li>计算图有两个主要元素：结点（Node）和边（Edge）；</li>
-<li>结点表示数据 ，如向量、矩阵、张量;</li>
-<li>边表示运算 ，如加减乘除卷积等；</li>
-</ul>
-<p><img src="/../pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE2.png" srcset="/img/loading.gif" lazyload alt="运算逻辑"></p>
-<p>上图是用计算图表示：</p>
-<p><strong><center> y&#x3D;(x+w)∗(w+1)y&#x3D;(x+w)∗(w+1) </center></strong></p>
-<p>其中, <code>a=x+w,b=w+1,y=a∗b</code>，(a和b是中间变量)，Pytorch在计算的时候，就会把计算过程用上面那样的动态图存储起来。现在我们计算一下y关于w的梯度：<code>∂w/∂y= ∂a/∂y*∂w/∂a + ∂b/∂y*∂w/∂b = 2×w+x+1=5</code>。</p>
-<p>用Pytorch的代码来实现这个过程：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">w = torch.tensor([<span class="hljs-number">1.</span>],requires_grad = <span class="hljs-literal">True</span>)<br>x = torch.tensor([<span class="hljs-number">2.</span>],requires_grad = <span class="hljs-literal">True</span>)<br><br>a = w+x<br>b = w+<span class="hljs-number">1</span><br>y = a*b<br><br>y.backward()<br><span class="hljs-built_in">print</span>(w.grad)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">输出：</span><br><span class="hljs-string">tensor([5.])</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<p>图中的叶子节点，是<code>w</code>和<code>x</code>，是整个计算图的根基。之所以用叶子节点的概念，是为了减少内存，<strong>在反向传播结束之后，非叶子节点的梯度会被释放掉</strong>，我们依然用上面的例子解释：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">w = torch.tensor([<span class="hljs-number">1.</span>],requires_grad = <span class="hljs-literal">True</span>)<br>x = torch.tensor([<span class="hljs-number">2.</span>],requires_grad = <span class="hljs-literal">True</span>)<br><br>a = w+x<br>b = w+<span class="hljs-number">1</span><br>y = a*b<br><br>y.backward()<br><span class="hljs-built_in">print</span>(w.is_leaf,x.is_leaf,a.is_leaf,b.is_leaf,y.is_leaf)<br><span class="hljs-built_in">print</span>(w.grad,x.grad,a.grad,b.grad,y.grad)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">输出：</span><br><span class="hljs-string">True True False False False</span><br><span class="hljs-string">tensor([5.]) tensor([2.]) None None None</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<p>可以看到只有<code>x</code>和<code>w</code>是叶子节点，然后反向传播计算完梯度后（<code>.backward()</code>之后），只有叶子节点的梯度保存下来了。</p>
-<p>当然也可以通过<code>.retain_grad()</code>来保留非任意节点的梯度值：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python">w = torch.tensor([<span class="hljs-number">1.</span>],requires_grad = <span class="hljs-literal">True</span>)<br>x = torch.tensor([<span class="hljs-number">2.</span>],requires_grad = <span class="hljs-literal">True</span>)<br><br>a = w+x<br>a.retain_grad()<br>b = w+<span class="hljs-number">1</span><br>y = a*b<br><br>y.backward()<br><span class="hljs-built_in">print</span>(w.is_leaf,x.is_leaf,a.is_leaf,b.is_leaf,y.is_leaf)<br><span class="hljs-built_in">print</span>(w.grad,x.grad,a.grad,b.grad,y.grad)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">输出：</span><br><span class="hljs-string">True True False False False</span><br><span class="hljs-string">tensor([5.]) tensor([2.]) tensor([2.]) None None</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<p>torch.tensor有一个属性<code>grad_fn</code>,<code>grad_fn</code>的作用是记录创建该张量时所用的函数，这个属性反向传播的时候会用到。例如在上面的例子中，<code>y.grad_fn=MulBackward0</code>,表示y是通过乘法得到的。所以求导的时候就是用乘法的求导法则。同样的，<code>a.grad=AddBackward0</code>表示a是通过加法得到的，使用加法的求导法则。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">w = torch.tensor([<span class="hljs-number">1.</span>],requires_grad = <span class="hljs-literal">True</span>)<br>x = torch.tensor([<span class="hljs-number">2.</span>],requires_grad = <span class="hljs-literal">True</span>)<br><br>a = w+x<br>a.retain_grad()<br>b = w+<span class="hljs-number">1</span><br>y = a*b<br><br>y.backward()<br><span class="hljs-built_in">print</span>(y.grad_fn)<br><span class="hljs-built_in">print</span>(a.grad_fn)<br><span class="hljs-built_in">print</span>(w.grad_fn)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">&lt;MulBackward0 object at 0x7f95016326d8&gt;</span><br><span class="hljs-string">&lt;AddBackward0 object at 0x7f96b832d3c8&gt;</span><br><span class="hljs-string">None</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="结尾"><a href="#结尾" class="headerlink" title=" 结尾 "></a><center> 结尾 </center></h2><p>本文章摘抄于头歌教学平台中深度学习课程中静态图动态图的设计一节。</p>
-<p>觉得写的很好，故保留下来用于分析。</p>
+                <h2 id="数模心得之数维杯"><a href="#数模心得之数维杯" class="headerlink" title=" 数模心得之数维杯 "></a><center> 数模心得之数维杯 </center></h2><p>总算是没有寄的那么厉害的一次数模了原地哭泣www…<br><img src="/../pic/mathModeling/mathModeling2.png" srcset="/img/loading.gif" lazyload alt="比赛结果"><br>下面来总结一下哪些做的好的地方和还可以再改进的地方</p>
+<h2 id="好的地方"><a href="#好的地方" class="headerlink" title="好的地方"></a>好的地方</h2><p>1、吸取了前几次的教训，首先就是速度上一定不能拖，能开始的动手写论文就一定要开始写。</p>
+<p>2、对于细节一定要把控好，精选到每个图片里面的每一个字母，排版什么的一定要留时间去检查。</p>
+<p>3、网上的一些参考资料那就是参考，千万别认为他就是对的，一定要有自己的认知和判断。</p>
+<p>4、遇到瓶颈的时候去看看有没有类似问法的往年优秀论文，解题思路就可以借鉴（比如这次的第四题就是看了往年国赛的一道题）。</p>
+<p>5、有些参考资料是真的有用，去各大论文网站上找到有相似研究的，不仅仅让论文更加严谨而且写的也会很通畅</p>
+<p><strong><font color=IndianRed>最后强调！细节！细节！细节！很重要</font></strong></p>
+<h2 id="改进的方面"><a href="#改进的方面" class="headerlink" title="改进的方面"></a>改进的方面</h2><p>1、翻译时间一定要留够，当时以为翻译不会化太多时间，结果搞到凌晨5点。</p>
+<p>2、写的时候忽略了很多小细节，比如答案非常不合理，和图片描述有问题，这些都是放到最后的最后才找出来问题所在。</p>
+<p>3、还是经验有点不够，做题会存在很多不确定的地方。</p>
 
                 
               </div>
@@ -330,7 +303,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/DeepLearning/" class="category-chain-item">DeepLearning</a>
+  <a href="/categories/Experience/" class="category-chain-item">Experience</a>
   
   
 
@@ -345,7 +318,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/DL/" class="print-no-link">#DL</a>
+        <a href="/tags/math-modeling/" class="print-no-link">#math modeling</a>
       
     </div>
   
@@ -357,8 +330,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>深度学习中静态图动态图</div>
-      <div>https://jiahhhao.github.io/jiahhhao/2023/12/11/深度学习中静态图动态图/</div>
+      <div>数模心得之数维杯</div>
+      <div>https://jiahhhao.github.io/jiahhhao/2024/01/26/数模心得之数维杯/</div>
     </div>
     <div class="license-meta">
       
@@ -370,7 +343,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月11日</div>
+          <div>2024年1月26日</div>
         </div>
       
       
@@ -402,18 +375,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/26/%E6%95%B0%E6%A8%A1%E5%BF%83%E5%BE%97%E4%B9%8B%E6%95%B0%E7%BB%B4%E6%9D%AF/" title="数模心得之数维杯">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">数模心得之数维杯</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/03/%E4%B8%9C%E9%97%A8%E4%B9%8B%E6%9D%A8/" title="东门之杨">
-                        <span class="hidden-mobile">东门之杨</span>
+                      <a href="/2023/12/11/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE/" title="深度学习中静态图动态图">
+                        <span class="hidden-mobile">深度学习中静态图动态图</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
