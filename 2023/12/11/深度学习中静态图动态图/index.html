@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://jiahhhao.github.io/pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE1.gif">
 <meta property="og:image" content="https://jiahhhao.github.io/pic/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E4%B8%8E%E5%8A%A8%E6%80%81%E5%9B%BE/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%AD%E9%9D%99%E6%80%81%E5%9B%BE%E5%8A%A8%E6%80%81%E5%9B%BE2.png">
 <meta property="article:published_time" content="2023-12-11T03:20:50.000Z">
-<meta property="article:modified_time" content="2023-12-22T08:26:14.437Z">
+<meta property="article:modified_time" content="2024-05-30T08:15:37.313Z">
 <meta property="article:author" content="Zeng Jiahao">
 <meta property="article:tag" content="DL">
 <meta name="twitter:card" content="summary_large_image">
@@ -311,7 +311,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python">w = torch.tensor([<span class="hljs-number">1.</span>],requires_grad = <span class="hljs-literal">True</span>)<br>x = torch.tensor([<span class="hljs-number">2.</span>],requires_grad = <span class="hljs-literal">True</span>)<br><br>a = w+x<br>a.retain_grad()<br>b = w+<span class="hljs-number">1</span><br>y = a*b<br><br>y.backward()<br><span class="hljs-built_in">print</span>(y.grad_fn)<br><span class="hljs-built_in">print</span>(a.grad_fn)<br><span class="hljs-built_in">print</span>(w.grad_fn)<br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">&lt;MulBackward0 object at 0x7f95016326d8&gt;</span><br><span class="hljs-string">&lt;AddBackward0 object at 0x7f96b832d3c8&gt;</span><br><span class="hljs-string">None</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="结尾"><a href="#结尾" class="headerlink" title=" 结尾 "></a><center> 结尾 </center></h2><p>本文章摘抄于头歌教学平台中深度学习课程中静态图动态图的设计一节。</p>
-<p>觉得写的很好，故保留下来用于分析。</p>
+<p>觉得写的很好，故保留下来用于复习。</p>
 
                 
               </div>
