@@ -4,6 +4,93 @@
   
   
   <entry>
+    <title>WSL2 通过 Clash Verge 连接外网</title>
+    <link href="/2025/11/20/WSL2%E9%80%9A%E8%BF%87Clash-Verge%E8%BF%9E%E6%8E%A5%E5%A4%96%E7%BD%91/"/>
+    <url>/2025/11/20/WSL2%E9%80%9A%E8%BF%87Clash-Verge%E8%BF%9E%E6%8E%A5%E5%A4%96%E7%BD%91/</url>
+    
+    <content type="html"><![CDATA[<h2 id="问题根本原因"><a href="#问题根本原因" class="headerlink" title="问题根本原因"></a>问题根本原因</h2><p><strong>Windows 防火墙阻止了 WSL2 对 Clash Verge 端口的访问</strong></p>
+<ul>
+<li>WSL2 被视为"局域网"设备</li>
+<li>防火墙默认阻止外部对代理端口的访问</li>
+<li>需要手动开放相关端口</li>
+</ul>
+<h2 id="完整解决步骤"><a href="#完整解决步骤" class="headerlink" title="完整解决步骤"></a>完整解决步骤</h2><h3 id="第一步：Clash-Verge-基础配置"><a href="#第一步：Clash-Verge-基础配置" class="headerlink" title="第一步：Clash Verge 基础配置"></a>第一步：Clash Verge 基础配置</h3><ol>
+<li><strong>开启系统代理</strong> ✅</li>
+<li><strong>开启局域网连接</strong> ✅</li>
+<li><strong>确认代理端口</strong>（你的设置）：<ul>
+<li>混合代理端口：7897</li>
+<li>SOCKS 代理端口：7898</li>
+<li>HTTP(S) 代理端口：7899</li>
+</ul>
+</li>
+</ol>
+<h3 id="第二步：防火墙配置（关键步骤）"><a href="#第二步：防火墙配置（关键步骤）" class="headerlink" title="第二步：防火墙配置（关键步骤）"></a>第二步：防火墙配置（关键步骤）</h3><p>在 <strong>Windows PowerShell（管理员身份）</strong> 中执行：（其实只用了混合代理端口就好）</p>
+<pre><code class="powershell"># 开放 Clash Verge 所有代理端口
+netsh advfirewall firewall add rule name=&quot;Clash Verge HTTP&quot; dir=in action=allow protocol=TCP localport=7899
+netsh advfirewall firewall add rule name=&quot;Clash Verge Mixed&quot; dir=in action=allow protocol=TCP localport=7897
+netsh advfirewall firewall add rule name=&quot;Clash Verge SOCKS&quot; dir=in action=allow protocol=TCP localport=7898
+
+# 或者临时关闭防火墙测试（不推荐长期使用）
+# Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+</code></pre>
+<h3 id="第三步：获取-Windows-主机-IP"><a href="#第三步：获取-Windows-主机-IP" class="headerlink" title="第三步：获取 Windows 主机 IP"></a>第三步：获取 Windows 主机 IP</h3><p>在 WSL2 终端中：</p>
+<pre><code class="bash">cat /etc/resolv.conf | grep nameserver | awk &#39;&#123;print $2&#125;&#39;
+# 输出示例：172.18.176.1
+</code></pre>
+<h3 id="第四步：WSL2-环境变量配置"><a href="#第四步：WSL2-环境变量配置" class="headerlink" title="第四步：WSL2 环境变量配置"></a>第四步：WSL2 环境变量配置</h3><p>在 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 中添加：</p>
+<pre><code class="bash">export hostip=$(cat /etc/resolv.conf |grep -oP &#39;(?&lt;=nameserver\ ).*&#39;)
+export https_proxy=&quot;http://$&#123;hostip&#125;:7897&quot;
+export http_proxy=&quot;http://$&#123;hostip&#125;:7897&quot;
+</code></pre>
+<h3 id="第五步：应用配置并测试"><a href="#第五步：应用配置并测试" class="headerlink" title="第五步：应用配置并测试"></a>第五步：应用配置并测试</h3><pre><code class="bash"># 重新加载配置
+source ~/.bashrc
+
+# 测试连接
+curl -I https://www.google.com
+
+# 验证环境变量
+echo $HTTP_PROXY
+</code></pre>
+<h2 id="验证命令"><a href="#验证命令" class="headerlink" title="验证命令"></a>验证命令</h2><pre><code class="bash"># 测试端口连通性
+timeout 3 bash -c &quot;echo &gt; /dev/tcp/172.18.176.1/7897&quot; &amp;&amp; echo &quot;端口可访问&quot; || echo &quot;端口无法访问&quot;
+
+# 测试代理功能
+curl -x http://172.18.176.1:7897 -I https://www.google.com
+</code></pre>
+<h2 id="故障排查要点"><a href="#故障排查要点" class="headerlink" title="故障排查要点"></a>故障排查要点</h2><ol>
+<li><strong>端口测试失败</strong> → 检查防火墙规则</li>
+<li><strong>curl 无响应</strong> → 确认 Clash Verge 运行状态和节点可用性</li>
+<li><strong>环境变量不生效</strong> → 重新加载 <code>source ~/.bashrc</code></li>
+<li><strong>IP 地址变化</strong> → WSL2 重启后可能需要更新 IP</li>
+</ol>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>✅ WSL2 中所有网络请求（curl、wget、apt、git 等）自动通过 Clash Verge 代理</p>
+<p>✅ 保持 Windows 端原有的代理体验</p>
+<p>✅ 稳定的内外网访问能力</p>
+<p>这个问题完美解决了！防火墙配置是 WSL2 网络连接中最容易被忽略但至关重要的环节。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tools-Website</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>WSL2</tag>
+      
+      <tag>Clash</tag>
+      
+      <tag>网络配置</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>考研结束</title>
     <link href="/2025/04/02/%E8%80%83%E7%A0%94%E7%BB%93%E6%9D%9F/"/>
     <url>/2025/04/02/%E8%80%83%E7%A0%94%E7%BB%93%E6%9D%9F/</url>
